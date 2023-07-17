@@ -10,7 +10,7 @@ import {
 import { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { styles, theme } from '../theme';
+import { styles } from '../theme';
 import { fallbackMoviePoster, image185, searchMovies } from '../api/moviedb';
 import { ChevronLeftIcon } from 'react-native-heroicons/outline';
 
@@ -23,7 +23,6 @@ export default function AllMoviesScreen() {
   const [results, setResults] = useState([]);
 
   useEffect(() => {
-    console.log(data.title);
     setResults(data.data);
   }, []);
 

@@ -15,8 +15,6 @@ import { fallbackMoviePoster, image185 } from '../api/moviedb';
 const { width, height } = Dimensions.get('window');
 
 export default function MovieList({ title, data, hideSeeAll }) {
-  let movieName = 'Ant-Man and the Wasp: Quantumania';
-
   const navigation = useNavigation();
 
   return (
@@ -24,7 +22,11 @@ export default function MovieList({ title, data, hideSeeAll }) {
       <View className='mx-4 flex-row justify-between items-center'>
         <Text className='text-white text-xl'>{title}</Text>
         {!hideSeeAll && (
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('SeeAll', { data, title });
+            }}
+          >
             <Text style={styles.text} className='text-lg'>
               See All
             </Text>

@@ -21,6 +21,11 @@ const similarMoviesEndpoint = (id) =>
 
 const searchMoviesEndpoint = `${apiBaseUrl}/search/movie?api_key=${apiKey}`;
 
+//video endpoint
+
+const movieVideosEndpoint = (id) =>
+  `${apiBaseUrl}/movie/${id}/videos?api_key=${apiKey}`;
+
 // person endpoints
 
 const personDetailsEndpoint = (id) =>
@@ -89,4 +94,8 @@ export const fetchPersonMovies = (id) => {
 
 export const searchMovies = (params) => {
   return apiCall(searchMoviesEndpoint, params);
+};
+
+export const fetchMovieVideos = (id) => {
+  return apiCall(movieVideosEndpoint(id));
 };

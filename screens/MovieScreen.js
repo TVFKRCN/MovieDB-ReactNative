@@ -21,8 +21,10 @@ import {
   fetchMovieCredits,
   fetchMovieDetails,
   fetchSimilarMovies,
+  fetchMovieVideos,
   image500,
 } from '../api/moviedb';
+import MovieVideos from '../components/MovieVideos';
 
 const { width, height } = Dimensions.get('window');
 
@@ -33,15 +35,16 @@ export default function MovieScreen() {
   const [isFavourite, setIsFavourite] = useState(false);
   const [cast, setCast] = useState([]);
   const [movie, setMovie] = useState({});
-  const [loading, setLoading] = useState(false);
-
   const [similarMovies, setSimilarMovies] = useState([]);
+  const [movieVideos, setMovieVideos] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
     getMovieDetails(item.id);
     getMovieCredits(item.id);
     getSimilarMovies(item.id);
+    getMovieVideos(item.id);
   }, [item]);
 
   const getMovieDetails = async (id) => {
@@ -63,6 +66,13 @@ export default function MovieScreen() {
     const data = await fetchSimilarMovies(id);
     if (data && data.results) {
       setSimilarMovies(data.results);
+    }
+  };
+
+  const getMovieVideos = async (id) => {
+    const data = await fetchMovieVideos(id);
+    if (data && data.results) {
+      setMovieVideos(data.results);
     }
   };
 
@@ -94,7 +104,6 @@ export default function MovieScreen() {
         ) : (
           <View>
             <Image
-              // source={require('../assets/images/moviePoster2.png')}
               source={{
                 uri: image500(movie?.poster_path) || fallbackMoviePoster,
               }}
@@ -163,6 +172,7 @@ export default function MovieScreen() {
           data={similarMovies}
         />
       )}
+      {movieVideos.length > 0 && <MovieVideos data={movieVideos} />}
     </ScrollView>
   );
 }
